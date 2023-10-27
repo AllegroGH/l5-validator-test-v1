@@ -1,25 +1,22 @@
+/* eslint class-methods-use-this: 0 */
+const even = 0;
+const odd = 1;
+
 export default class NumberSchema {
-  constructor() {
-    this.checkEven = false;
-    this.checkOdd = false;
+  constructor(parity = null) {
+    this.requiredParity = parity;
   }
 
   isValid(data) {
     if (typeof data !== 'number') return false;
-    if (this.checkEven) return !(data % 2);
-    if (this.checkOdd) return !!(data % 2);
-    return true;
+    return this.requiredParity !== null ? data % 2 === this.requiredParity : true;
   }
 
   even() {
-    this.checkOdd = false;
-    this.checkEven = true;
-    return this;
+    return new NumberSchema(even);
   }
 
   odd() {
-    this.checkEven = false;
-    this.checkOdd = true;
-    return this;
+    return new NumberSchema(odd);
   }
 }

@@ -1,3 +1,6 @@
+/* eslint class-methods-use-this: 0 */
+/* eslint max-classes-per-file: 0 */
+
 import NumberSchema from './NumberSchema.js';
 import ArraySchema from './ArraySchema.js';
 import ObjectSchema from './ObjectSchema.js';
@@ -14,7 +17,6 @@ export default class Validator {
   }
 
   object() {
-    this.schema = new ObjectSchema();
-    return this.schema;
+    return new ObjectSchema();
   }
 }

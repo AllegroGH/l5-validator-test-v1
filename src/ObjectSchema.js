@@ -1,16 +1,19 @@
+/* eslint class-methods-use-this: 0 */
+
 export default class ObjectSchema {
-  constructor() {
-    this.id = null;
-    this.basket = null;
+  constructor(shapes) {
+    this.validators = shapes;
   }
 
-  isValid({ id, basket }) {
-    return this.id.isValid(id) && this.basket.isValid(basket);
+  shape(fields) {
+    return new ObjectSchema(fields);
   }
 
-  shape({ id, basket }) {
-    this.id = id;
-    this.basket = basket;
-    return this;
+  isValid(data) {
+    const dataKeys = Object.keys(data).sort();
+    const validatorsKeys = Object.keys(this.validators).sort();
+    if (dataKeys.length !== validatorsKeys.length) return false;
+    if (dataKeys.filter((key, index) => key !== validatorsKeys[index]).length) return false;
+    return dataKeys.every((key) => this.validators[key].isValid(data[key]));
   }
 }

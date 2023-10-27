@@ -1,6 +1,8 @@
+/* eslint class-methods-use-this: 0 */
+
 export default class ArraySchema {
-  constructor() {
-    this.checkedLength = -1;
+  constructor(length = -1) {
+    this.checkedLength = length;
   }
 
   isValid(data) {
@@ -9,7 +11,6 @@ export default class ArraySchema {
   }
 
   length(value) {
-    this.checkedLength = value;
-    return this;
+    return new ArraySchema(value);
   }
 }
